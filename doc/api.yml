@@ -1,0 +1,152 @@
+openapi: 3.1.0
+info:
+  title: Cine-naka api
+  version: 1.0.0
+  description: API complète pour la gestion d'un cinéma (Films, Projections, Sécurité et Réservations).
+paths:
+  /projections:
+    get:
+      summary: Récupérer la liste des projections
+      description: Route publique accessible par tous les types d'utilisateurs (CLIENT, EMPLOYEE, MANAGER).
+      responses:
+        '200':
+          description: Succès - La liste des projections est retournée.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Projection'
+                  
+  /projection:
+    put:
+      summary: Créer ou modifier une projection (séance)
+      description: Réservé exclusivement au rôle **MANAGER**.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Projection'
+      responses:
+        '200':
+          description: Projection mise à jour ou créée avec succès.
+        '403':
+          description: Interdit - Rôle MANAGER requis.
+
+  /movies:
+    put:
+      summary: Ajouter ou mettre à jour un film
+      description: Réservé exclusivement au rôle **MANAGER**.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Movie'
+      responses:
+        '200':
+          description: Film enregistré avec succès.
+        '403':
+          description: Interdit - Droits insuffisants.
+
+  /reservations:
+    get:
+      summary: Lister toutes les réservations du cinéma
+      description: Accessible uniquement par les rôles **EMPLOYEE** et **MANAGER**.
+      responses:
+        '200':
+          description: Liste globale des réservations.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reservation'
+        '403':
+          description: Interdit pour les clients.
+
+  /reservationById:
+    get:
+      summary: Obtenir le détail d'une réservation précise
+      description: Accessible par l'**EMPLOYEE**, le **MANAGER**, ou le **CLIENT propriétaire** de cette réservation spécifique.
+      parameters:
+        - name: id
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Détails de la réservation trouvée.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reservation'
+        '403':
+          description: Interdit si le client n'est pas l'auteur de la réservation.
+
+  /reservation:
+    put:
+      summary: Soumettre ou valider une réservation
+      description: Un **CLIENT** peut uniquement créer (statut initial). L'**EMPLOYEE** et le **MANAGER** peuvent modifier le statut.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reservation'
+      responses:
+        '200':
+          description: Opération validée.
+        '400':
+          description: Requête invalide (Ex: Tentative de fraude sur le statut par un client).
+
+components:
+  schemas:
+    Projection:
+      type: object
+      required: [id, datetime, seatPrice]
+      properties:
+        id:
+          type: string
+          format: uuid
+        datetime:
+          type: string
+          format: date-time
+        seatPrice:
+          type: number
+          format: double
+        movieId:
+          type: string
+          format: uuid
+
+    Movie:
+      type: object
+      required: [id, title]
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        durationMinutes:
+          type: integer
+
+    Reservation:
+      type: object
+      required: [id, projectionId, userId, status]
+      properties:
+        id:
+          type: string
+          format: uuid
+        projectionId:
+          type: string
+          format: uuid
+        userId:
+          type: string
+          format: uuid
+        status:
+          type: string
+          enum: [PENDING, CONFIRMED, CANCELLED]
