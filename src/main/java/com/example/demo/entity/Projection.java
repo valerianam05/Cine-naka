@@ -16,7 +16,7 @@ public class Projection {
   private UUID id;
 
   @Column(nullable = false, name = "data_time")
-  private Instant dataTime;
+  private Instant dateTime;
 
   @Column(nullable = false, name = "seat_price")
   private BigDecimal seatPrice;
