@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+<<<<<<< HEAD
 import com.example.demo.entity.Projections;
 import java.time.Instant;
 import java.util.List;
@@ -14,3 +15,10 @@ public interface ProjectionRepository extends JpaRepository<Projections, UUID> {
 
   List<Projections> findByDateTimeAfter(Instant dateTime);
 }
+=======
+import com.example.demo.entity.ProjectionEntity;
+import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface ProjectionRepository extends JpaRepository<ProjectionEntity, UUID> {}
+>>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)

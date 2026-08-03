@@ -15,6 +15,11 @@ import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import jakarta.persistence.EntityManager;
+<<<<<<< HEAD
+=======
+import java.nio.file.AccessDeniedException;
+import java.util.List;
+>>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +27,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+<<<<<<< HEAD
 import org.springframework.security.access.AccessDeniedException;
+=======
+>>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
 
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceTest {
@@ -89,7 +97,12 @@ class ReservationServiceTest {
     Reservation dto = new Reservation();
     dto.setProjectionId(UUID.randomUUID());
 
+<<<<<<< HEAD
     when(entityManager.getReference(eq(Projections.class), any())).thenReturn(new Projections());
+=======
+    when(entityManager.getReference(eq(ProjectionEntity.class), any()))
+        .thenReturn(new ProjectionEntity());
+>>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
     when(reservationRepository.save(any(ReservationEntity.class)))
         .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -149,11 +162,28 @@ class ReservationServiceTest {
     assertThat(result.getStatus()).isEqualTo(ReservationStatus.CONFIRMED);
   }
 
+<<<<<<< HEAD
+=======
+  @Test
+  void getAllReservations_returnsMappedList() {
+    ReservationEntity reservation = reservationOf(client);
+    when(reservationRepository.findAll()).thenReturn(List.of(reservation));
+
+    List<Reservation> result = service.getAllReservations();
+
+    assertThat(result).hasSize(1);
+  }
+
+>>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
   private ReservationEntity reservationOf(UserEntity owner) {
     return ReservationEntity.builder()
         .id(UUID.randomUUID())
         .user(owner)
+<<<<<<< HEAD
         .projection(Projections.builder().id(UUID.randomUUID()).build())
+=======
+        .projection(ProjectionEntity.builder().id(UUID.randomUUID()).build())
+>>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
         .status(ReservationStatus.PENDING)
         .build();
   }
