@@ -7,8 +7,9 @@ import java.util.UUID;
 import lombok.*;
 
 @Entity
+@Getter
+@Setter
 @Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Projection {

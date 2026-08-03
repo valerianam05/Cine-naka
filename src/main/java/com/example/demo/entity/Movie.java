@@ -8,10 +8,11 @@ import lombok.*;
 import main.java.com.example.demo.entity.enums.Genre;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Movie {
 
   @Id

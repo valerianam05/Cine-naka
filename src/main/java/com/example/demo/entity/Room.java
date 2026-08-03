@@ -6,10 +6,11 @@ import java.util.UUID;
 import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Builder
 public class Room {
 
   @Id
