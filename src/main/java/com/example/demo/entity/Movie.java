@@ -11,6 +11,7 @@ import main.java.com.example.demo.entity.enums.Genre;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Movie {
 
   @Id

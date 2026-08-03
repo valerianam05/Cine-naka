@@ -2,8 +2,13 @@ package main.java.com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;
+import lombok.*;
 
 @Entity
+@Builder
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Projection {
 
   @Id
