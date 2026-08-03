@@ -1,5 +1,6 @@
 package com.example.demo.entity;
 
+import com.example.demo.entity.enums.UserRole;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
@@ -18,7 +19,7 @@ public class UserEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(nullable = false)
+  @Column(nullable = false, name = "first_name")
   private String firstName;
 
   @Column(nullable = false)

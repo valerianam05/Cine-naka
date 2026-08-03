@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.time.Duration;
 import java.util.UUID;
 import lombok.*;
 
@@ -20,5 +21,5 @@ public class MovieEntity {
   private String title;
 
   @Column(name = "duration_minutes")
-  private Integer durationMinutes;
+  private Duration durationMinutes;
 }
