@@ -1,10 +1,10 @@
 package main.java.com.example.demo.entity;
 
 import jakarta.persistence.*;
-import java.util.UUID;
-import lombok.*;
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.UUID;
+import lombok.*;
 
 @Entity
 @Builder
