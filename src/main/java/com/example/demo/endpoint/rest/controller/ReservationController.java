@@ -2,6 +2,7 @@ package com.example.demo.endpoint.rest.controller;
 
 import com.example.demo.entity.UserEntity;
 import com.example.demo.model.Reservation;
+import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.ReservationService;
 import java.nio.file.AccessDeniedException;
 import java.util.List;
@@ -33,8 +34,9 @@ public class ReservationController {
 
   @PutMapping("/reservation")
   public Reservation createOrUpdateReservation(
-      @RequestBody Reservation dto, @AuthenticationPrincipal UserEntity currentUser)
+      @RequestBody Reservation dto, @AuthenticationPrincipal UserPrincipal principal)
       throws AccessDeniedException {
-    return reservationService.createOrUpdateReservation(dto, currentUser);
+
+    return reservationService.createOrUpdateReservation(dto, principal.getUser());
   }
 }
