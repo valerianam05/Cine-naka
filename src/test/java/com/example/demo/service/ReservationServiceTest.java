@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
@@ -15,11 +15,7 @@ import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import jakarta.persistence.EntityManager;
-<<<<<<< HEAD
-=======
-import java.nio.file.AccessDeniedException;
 import java.util.List;
->>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -27,10 +23,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-<<<<<<< HEAD
 import org.springframework.security.access.AccessDeniedException;
-=======
->>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
 
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceTest {
@@ -65,7 +58,7 @@ class ReservationServiceTest {
   }
 
   @Test
-  void getReservationById_otherClient_throwsAccessDenied() {
+  void getReservationById_otherClient_throwsAccessDenied() throws AccessDeniedException {
     ReservationEntity reservation = reservationOf(client);
     when(reservationRepository.findById(reservation.getId())).thenReturn(Optional.of(reservation));
 
@@ -84,7 +77,7 @@ class ReservationServiceTest {
   }
 
   @Test
-  void getReservationById_notFound_throwsResourceNotFound() {
+  void getReservationById_notFound_throwsResourceNotFound() throws AccessDeniedException {
     UUID missingId = UUID.randomUUID();
     when(reservationRepository.findById(missingId)).thenReturn(Optional.empty());
 
@@ -97,12 +90,7 @@ class ReservationServiceTest {
     Reservation dto = new Reservation();
     dto.setProjectionId(UUID.randomUUID());
 
-<<<<<<< HEAD
     when(entityManager.getReference(eq(Projections.class), any())).thenReturn(new Projections());
-=======
-    when(entityManager.getReference(eq(ProjectionEntity.class), any()))
-        .thenReturn(new ProjectionEntity());
->>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
     when(reservationRepository.save(any(ReservationEntity.class)))
         .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -112,7 +100,7 @@ class ReservationServiceTest {
   }
 
   @Test
-  void create_client_forcingNonPendingStatus_throwsForbidden() {
+  void create_client_forcingNonPendingStatus_throwsForbidden() throws AccessDeniedException {
     Reservation dto = new Reservation();
     dto.setProjectionId(UUID.randomUUID());
     dto.setStatus(ReservationStatus.CONFIRMED);
@@ -122,7 +110,7 @@ class ReservationServiceTest {
   }
 
   @Test
-  void update_ownerClient_changingStatus_throwsForbidden() {
+  void update_ownerClient_changingStatus_throwsForbidden() throws AccessDeniedException {
     ReservationEntity reservation = reservationOf(client);
     Reservation dto = new Reservation();
     dto.setId(reservation.getId());
@@ -135,7 +123,7 @@ class ReservationServiceTest {
   }
 
   @Test
-  void update_otherClient_throwsAccessDenied() {
+  void update_otherClient_throwsAccessDenied() throws AccessDeniedException {
     ReservationEntity reservation = reservationOf(client);
     Reservation dto = new Reservation();
     dto.setId(reservation.getId());
@@ -162,8 +150,6 @@ class ReservationServiceTest {
     assertThat(result.getStatus()).isEqualTo(ReservationStatus.CONFIRMED);
   }
 
-<<<<<<< HEAD
-=======
   @Test
   void getAllReservations_returnsMappedList() {
     ReservationEntity reservation = reservationOf(client);
@@ -174,16 +160,11 @@ class ReservationServiceTest {
     assertThat(result).hasSize(1);
   }
 
->>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
   private ReservationEntity reservationOf(UserEntity owner) {
     return ReservationEntity.builder()
         .id(UUID.randomUUID())
         .user(owner)
-<<<<<<< HEAD
         .projection(Projections.builder().id(UUID.randomUUID()).build())
-=======
-        .projection(ProjectionEntity.builder().id(UUID.randomUUID()).build())
->>>>>>> ec712e6 (chore(test): add temporary security config and reservation API testing setup)
         .status(ReservationStatus.PENDING)
         .build();
   }
