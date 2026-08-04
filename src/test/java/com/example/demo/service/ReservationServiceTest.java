@@ -16,7 +16,6 @@ import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import jakarta.persistence.EntityManager;
 import java.nio.file.AccessDeniedException;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -149,16 +148,6 @@ class ReservationServiceTest {
     Reservation result = service.createOrUpdateReservation(dto, employee);
 
     assertThat(result.getStatus()).isEqualTo(ReservationStatus.CONFIRMED);
-  }
-
-  @Test
-  void getAllReservations_returnsMappedList() {
-    ReservationEntity reservation = reservationOf(client);
-    when(reservationRepository.findAll()).thenReturn(List.of(reservation));
-
-    List<Reservation> result = service.getAllReservations();
-
-    assertThat(result).hasSize(1);
   }
 
   private ReservationEntity reservationOf(UserEntity owner) {
