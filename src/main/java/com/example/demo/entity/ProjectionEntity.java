@@ -18,13 +18,17 @@ public class ProjectionEntity {
   @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
-  @Column(nullable = false)
-  private Instant datetime;
+  @Column(nullable = false, name = "data_time")
+  private Instant dateTime;
 
-  @Column(nullable = false)
+  @Column(nullable = false, name = "seat_price")
   private BigDecimal seatPrice;
 
-  @ManyToOne(optional = false, fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "movie_id", nullable = false)
   private MovieEntity movie;
+
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "room_id", nullable = false)
+  private Room room;
 }

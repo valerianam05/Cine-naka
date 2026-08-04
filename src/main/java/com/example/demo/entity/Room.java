@@ -1,4 +1,4 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -13,7 +13,7 @@ import lombok.*;
 public class Room {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
   @Column(nullable = false)

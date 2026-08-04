@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import com.example.demo.entity.enums.ReservationStatus;
 import jakarta.persistence.*;
 import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 import lombok.*;
 
@@ -33,6 +34,13 @@ public class ReservationEntity {
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "projection_id", nullable = false)
   private ProjectionEntity projection;
+
+  @ManyToMany
+  @JoinTable(
+      name = "reservation_seats",
+      joinColumns = @JoinColumn(name = "reservation_id"),
+      inverseJoinColumns = @JoinColumn(name = "seat_id"))
+  private List<Seat> seats;
 
   @PrePersist
   public void prePersist() {

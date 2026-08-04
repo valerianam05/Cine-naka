@@ -2,6 +2,7 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.time.Duration;
+import java.util.List;
 import java.util.UUID;
 import lombok.*;
 
@@ -20,6 +21,13 @@ public class MovieEntity {
   @Column(nullable = false)
   private String title;
 
+  @Column(nullable = false)
+  private String description;
+
   @Column(name = "duration_minutes")
   private Duration durationMinutes;
+
+  @ElementCollection(targetClass = main.java.com.example.demo.entity.enums.Genre.class)
+  @Enumerated(EnumType.STRING)
+  private List<main.java.com.example.demo.entity.enums.Genre> genres;
 }
