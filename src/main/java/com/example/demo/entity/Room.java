@@ -1,4 +1,4 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.util.List;
@@ -6,10 +6,11 @@ import java.util.UUID;
 import lombok.*;
 
 @Entity
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-@Builder
 public class Room {
 
   @Id

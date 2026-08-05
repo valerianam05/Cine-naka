@@ -1,14 +1,15 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.util.UUID;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Seat {
 
   @Id

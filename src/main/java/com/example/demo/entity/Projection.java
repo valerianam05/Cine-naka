@@ -1,4 +1,4 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -7,8 +7,9 @@ import java.util.UUID;
 import lombok.*;
 
 @Entity
+@Getter
+@Setter
 @Builder
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Projection {
