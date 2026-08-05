@@ -11,7 +11,8 @@ import lombok.Data;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 public class UserEntity {
@@ -41,5 +42,4 @@ public class UserEntity {
   private UserRole role;
 
   protected UserEntity() {}
-
 }
