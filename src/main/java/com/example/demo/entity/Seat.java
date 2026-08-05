@@ -6,10 +6,11 @@ import java.util.UUID;
 import lombok.*;
 
 @Entity
-@Data
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class Seat {
 
   @Id
