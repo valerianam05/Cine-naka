@@ -1,14 +1,16 @@
 package com.example.demo.repository;
 
-import com.example.demo.entity.Projection;
+import com.example.demo.entity.Projections;
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProjectionRepository extends JpaRepository<Projection, UUID> {
+public interface ProjectionRepository extends JpaRepository<Projections, UUID> {
 
-  List<Projection> findByMovieId(UUID movieId);
+  List<Projections> findByMovieId(UUID movieId);
 
-  List<Projection> findByDateTimeAfter(Instant dateTime);
+  List<Projections> findByDateTimeAfter(Instant dateTime);
 }

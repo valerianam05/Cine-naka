@@ -1,14 +1,15 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
+import com.example.demo.entity.enums.Genre;
 import jakarta.persistence.*;
 import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
-import main.java.com.example.demo.entity.enums.Genre;
 
 @Entity
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder

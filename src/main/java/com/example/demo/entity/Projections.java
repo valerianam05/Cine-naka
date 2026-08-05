@@ -1,4 +1,4 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
@@ -8,10 +8,11 @@ import lombok.*;
 
 @Entity
 @Builder
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Projection {
+public class Projections {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)
