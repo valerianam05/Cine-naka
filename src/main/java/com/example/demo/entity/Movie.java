@@ -15,7 +15,7 @@ import main.java.com.example.demo.entity.enums.Genre;
 public class Movie {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @GeneratedValue(strategy = GenerationType.UUID)
   private UUID id;
 
   @Column(nullable = false)
