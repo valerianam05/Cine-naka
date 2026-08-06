@@ -12,7 +12,7 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Projection {
+public class Projections {
 
   @Id
   @GeneratedValue(strategy = GenerationType.UUID)

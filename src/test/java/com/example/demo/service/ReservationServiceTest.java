@@ -89,7 +89,7 @@ class ReservationServiceTest {
     Reservation dto = new Reservation();
     dto.setProjectionId(UUID.randomUUID());
 
-    when(entityManager.getReference(eq(Projection.class), any())).thenReturn(new Projection());
+    when(entityManager.getReference(eq(Projections.class), any())).thenReturn(new Projections());
     when(reservationRepository.save(any(ReservationEntity.class)))
         .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -153,7 +153,7 @@ class ReservationServiceTest {
     return ReservationEntity.builder()
         .id(UUID.randomUUID())
         .user(owner)
-        .projection(Projection.builder().id(UUID.randomUUID()).build())
+        .projection(Projections.builder().id(UUID.randomUUID()).build())
         .status(ReservationStatus.PENDING)
         .build();
   }

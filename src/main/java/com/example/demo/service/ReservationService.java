@@ -2,7 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.endpoint.rest.exception.ForbiddenOperationException;
 import com.example.demo.endpoint.rest.exception.ResourceNotFoundException;
-import com.example.demo.entity.Projection;
+import com.example.demo.entity.Projections;
 import com.example.demo.entity.ReservationEntity;
 import com.example.demo.entity.UserEntity;
 import com.example.demo.entity.enums.ReservationStatus;
@@ -74,7 +74,7 @@ public class ReservationService {
 
     ReservationEntity reservation = new ReservationEntity();
     reservation.setUser(currentUser);
-    reservation.setProjection(entityManager.getReference(Projection.class, dto.getProjectionId()));
+    reservation.setProjection(entityManager.getReference(Projections.class, dto.getProjectionId()));
     reservation.setStatus(ReservationStatus.PENDING);
 
     return reservationMapper.toModel(reservationRepository.save(reservation));
