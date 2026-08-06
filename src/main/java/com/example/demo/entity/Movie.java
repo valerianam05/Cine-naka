@@ -1,4 +1,4 @@
-package main.java.com.example.demo.entity;
+package com.example.demo.entity;
 
 import com.example.demo.entity.enums.Genre;
 import jakarta.persistence.*;

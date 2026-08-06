@@ -2,16 +2,18 @@ package com.example.demo.service;
 
 import com.example.demo.endpoint.rest.exception.ForbiddenOperationException;
 import com.example.demo.endpoint.rest.exception.ResourceNotFoundException;
-import com.example.demo.entity.*;
+import com.example.demo.entity.Projection;
+import com.example.demo.entity.ReservationEntity;
+import com.example.demo.entity.UserEntity;
 import com.example.demo.entity.enums.ReservationStatus;
 import com.example.demo.entity.enums.UserRole;
 import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import jakarta.persistence.EntityManager;
-import java.nio.file.AccessDeniedException;
 import java.util.List;
 import java.util.UUID;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,6 +50,12 @@ public class ReservationService {
     return reservationMapper.toModel(reservation);
   }
 
+  @Transactional(readOnly = true)
+  public Reservation getReservationById(UUID id) {
+    ReservationEntity reservation = findOrThrow(id);
+    return reservationMapper.toModel(reservation);
+  }
+
   @Transactional
   public Reservation createOrUpdateReservation(Reservation dto, UserEntity currentUser)
       throws AccessDeniedException {
@@ -66,8 +74,7 @@ public class ReservationService {
 
     ReservationEntity reservation = new ReservationEntity();
     reservation.setUser(currentUser);
-    reservation.setProjection(
-        entityManager.getReference(ProjectionEntity.class, dto.getProjectionId()));
+    reservation.setProjection(entityManager.getReference(Projection.class, dto.getProjectionId()));
     reservation.setStatus(ReservationStatus.PENDING);
 
     return reservationMapper.toModel(reservationRepository.save(reservation));
