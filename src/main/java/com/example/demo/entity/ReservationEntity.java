@@ -33,7 +33,7 @@ public class ReservationEntity {
 
   @ManyToOne(fetch = FetchType.LAZY, optional = false)
   @JoinColumn(name = "projection_id", nullable = false)
-  private ProjectionEntity projection;
+  private Projection projection;
 
   @ManyToMany
   @JoinTable(

@@ -15,7 +15,6 @@ import com.example.demo.mapper.ReservationMapper;
 import com.example.demo.model.Reservation;
 import com.example.demo.repository.ReservationRepository;
 import jakarta.persistence.EntityManager;
-import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.access.AccessDeniedException;
 
 @ExtendWith(MockitoExtension.class)
 class ReservationServiceTest {
@@ -89,8 +89,7 @@ class ReservationServiceTest {
     Reservation dto = new Reservation();
     dto.setProjectionId(UUID.randomUUID());
 
-    when(entityManager.getReference(eq(ProjectionEntity.class), any()))
-        .thenReturn(new ProjectionEntity());
+    when(entityManager.getReference(eq(Projection.class), any())).thenReturn(new Projection());
     when(reservationRepository.save(any(ReservationEntity.class)))
         .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -154,7 +153,7 @@ class ReservationServiceTest {
     return ReservationEntity.builder()
         .id(UUID.randomUUID())
         .user(owner)
-        .projection(ProjectionEntity.builder().id(UUID.randomUUID()).build())
+        .projection(Projection.builder().id(UUID.randomUUID()).build())
         .status(ReservationStatus.PENDING)
         .build();
   }

@@ -1,6 +1,5 @@
 package com.example.demo.endpoint.rest.controller;
 
-import com.example.demo.entity.UserEntity;
 import com.example.demo.model.Reservation;
 import com.example.demo.security.UserPrincipal;
 import com.example.demo.service.ReservationService;
@@ -27,9 +26,10 @@ public class ReservationController {
 
   @GetMapping("/reservationById")
   public Reservation getReservationById(
-      @RequestParam UUID id, @AuthenticationPrincipal UserEntity currentUser)
+      @RequestParam UUID id, @AuthenticationPrincipal UserPrincipal principal)
       throws AccessDeniedException {
-    return reservationService.getReservationById(id, currentUser);
+
+    return reservationService.getReservationById(id, principal.getUser());
   }
 
   @PutMapping("/reservation")
