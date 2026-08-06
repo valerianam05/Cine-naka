@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import jakarta.persistence.*;
+import java.util.List;
 import java.util.UUID;
 import lombok.*;
 
@@ -25,4 +26,7 @@ public class Seat {
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "room_id", nullable = false)
   private Room room;
+
+  @ManyToMany(mappedBy = "seats")
+  private List<ReservationEntity> reservations;
 }
