@@ -1,5 +1,3 @@
 package com.example.demo.mapper;
 
-public interface MovieMapper {
-
-}
+public interface MovieMapper {}
