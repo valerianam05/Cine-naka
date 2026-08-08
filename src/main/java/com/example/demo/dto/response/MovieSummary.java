@@ -2,6 +2,4 @@ package com.example.demo.dto.response;
 
 import java.util.UUID;
 
-public record MovieSummary(UUID id, String title) {
-
-}
+public record MovieSummary(UUID id, String title) {}

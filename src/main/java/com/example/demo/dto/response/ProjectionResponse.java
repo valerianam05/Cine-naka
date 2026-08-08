@@ -6,4 +6,3 @@ import java.util.UUID;
 
 public record ProjectionResponse(
     UUID id, Instant dateTime, BigDecimal seatPrice, MovieSummary movie, RoomSummary room) {}
-
