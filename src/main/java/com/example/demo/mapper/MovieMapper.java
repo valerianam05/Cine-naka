@@ -5,38 +5,38 @@ import com.example.demo.dto.response.MovieResponse;
 import com.example.demo.dto.response.MovieSummary;
 import com.example.demo.entity.Movie;
 import com.example.demo.entity.enums.Genre;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
 
-    MovieResponse toResponse(Movie movie);
+  @Mapping(source = "duration", target = "durationMinutes", qualifiedByName = "durationToMinutes")
+  MovieResponse toResponse(Movie movie);
 
-    MovieSummary toSummary(Movie movie);
+  MovieSummary toSummary(Movie movie);
 
-    @Mapping(target = "id", ignore = true)
-    @Mapping(target = "genres", source = "genres")
-    @Mapping(target = "duration", expression = "java(mapDuration(request.durationMinutes()))")
-    Movie toEntity(CreateMovieRequest request);
+  @Mapping(target = "id", ignore = true)
+  @Mapping(source = "durationMinutes", target = "duration", qualifiedByName = "minutesToDuration")
+  @Mapping(source = "genres", target = "genres", qualifiedByName = "stringToGenreList")
+  Movie toEntity(CreateMovieRequest request);
 
+  @Named("durationToMinutes")
+  default long durationToMinutes(Duration duration) {
+    return duration.toMinutes();
+  }
 
-    default List<String> mapGenresToString(List<Genre> genres) {
-        return genres.stream().map(Enum::name).collect(Collectors.toList());
-    }
+  @Named("minutesToDuration")
+  default Duration minutesToDuration(long minutes) {
+    return Duration.ofMinutes(minutes);
+  }
 
-    default List<Genre> mapGenres(List<String> genres) {
-        return genres.stream().map(Genre::valueOf).collect(Collectors.toList());
-    }
-
-    default Duration mapDuration(long minutes) {
-        return Duration.ofMinutes(minutes);
-    }
-
-    default long mapDurationToMinutes(Duration duration) {
-        return duration.toMinutes();
-    }
+  @Named("stringToGenreList")
+  default List<Genre> stringToGenreList(List<String> genres) {
+    return genres.stream().map(Genre::valueOf).collect(Collectors.toList());
+  }
 }
