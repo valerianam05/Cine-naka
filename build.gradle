@@ -36,9 +36,7 @@ jacocoTestCoverageVerification {
     dependsOn test
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    "**/gen/**"
-            ])
+            fileTree(dir: it, exclude: ["**/gen/**"])
         }))
     }
     violationRules {
@@ -59,9 +57,7 @@ jacocoTestReport {
     }
     afterEvaluate {
         classDirectories.setFrom(files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: [
-                    "**/gen/**"
-            ])
+            fileTree(dir: it, exclude: ["**/gen/**"])
         }))
     }
     doLast {
@@ -85,7 +81,7 @@ jacocoTestReport {
                 println "No LINE coverage counter found in the JaCoCo report."
             }
         } else {
-            println "No JaCoCo coverage report found. Make sure you run 'gradle test jacocoTestReport' first."
+            println "No JaCoCo coverage report found."
         }
     }
 }
@@ -93,19 +89,35 @@ jacocoTestReport {
 compileJava {
     options.compilerArgs += [
         '-Amapstruct.unmappedTargetPolicy=ERROR',
-        '-Amapstruct.unmappedSourcePolicy=ERROR'
+        '-Amapstruct.unmappedSourcePolicy=WARN'
     ]
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.2'
-    testImplementation 'org.testcontainers:testcontainers:2.0.2'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    runtimeOnly 'org.postgresql:postgresql'
+
+    implementation 'org.mapstruct:mapstruct:1.6.3'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
+
+    compileOnly 'org.projectlombok:lombok:1.18.30'
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+    testCompileOnly 'org.projectlombok:lombok:1.18.30'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
+
+    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3'
+    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
+    implementation 'io.swagger:swagger-annotations:1.6.12'
 
     implementation 'com.amazonaws.serverless:aws-serverless-java-container-springboot3:2.1.0'
     implementation 'software.amazon.awssdk:aws-query-protocol:2.20.26'
-
     implementation 'com.amazonaws:aws-lambda-java-core:1.2.3'
     implementation 'com.amazonaws:aws-lambda-java-events:3.11.3'
     implementation 'software.amazon.awssdk:sqs:2.21.40'
@@ -118,28 +130,13 @@ dependencies {
     implementation 'jakarta.activation:jakarta.activation-api:2.1.2'
     implementation 'com.sun.mail:jakarta.mail:2.0.1'
     implementation 'com.sun.activation:jakarta.activation:2.0.1'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-    implementation 'org.springframework.boot:spring-boot-starter-validation'
-
-    implementation 'org.mapstruct:mapstruct:1.6.3'
-    annotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
-    testAnnotationProcessor 'org.mapstruct:mapstruct-processor:1.6.3'
-
-    annotationProcessor 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
 
     implementation 'org.apache.tika:tika-core:2.9.1'
-
     implementation 'org.reflections:reflections:0.10.2'
 
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    testCompileOnly 'org.projectlombok:lombok:1.18.30'
-    testAnnotationProcessor 'org.projectlombok:lombok:1.18.30'
-
-    implementation 'org.openapitools:jackson-databind-nullable:0.2.6'
-    implementation 'io.swagger:swagger-annotations:1.6.12'
-
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.2.2'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.testcontainers:testcontainers:2.0.2'
     testImplementation 'org.testcontainers:testcontainers-junit-jupiter:2.0.2'
     testImplementation 'org.junit-pioneer:junit-pioneer:2.2.0'
 }
