@@ -6,7 +6,6 @@ import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 import lombok.*;
-import main.java.com.example.demo.entity.enums.Genre;
 
 @Entity
 @Getter
