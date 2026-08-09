@@ -90,11 +90,7 @@ class ReservationServiceTest {
     Reservation dto = new Reservation();
     dto.setProjectionId(UUID.randomUUID());
 
-<<<<<<< HEAD
     when(entityManager.getReference(eq(Projections.class), any())).thenReturn(new Projections());
-=======
-    when(entityManager.getReference(eq(Projection.class), any())).thenReturn(new Projection());
->>>>>>> 49eccd7 (feat(reservation): implement reservation management API)
     when(reservationRepository.save(any(ReservationEntity.class)))
         .thenAnswer(invocation -> invocation.getArgument(0));
 
@@ -168,11 +164,7 @@ class ReservationServiceTest {
     return ReservationEntity.builder()
         .id(UUID.randomUUID())
         .user(owner)
-<<<<<<< HEAD
         .projection(Projections.builder().id(UUID.randomUUID()).build())
-=======
-        .projection(Projection.builder().id(UUID.randomUUID()).build())
->>>>>>> 49eccd7 (feat(reservation): implement reservation management API)
         .status(ReservationStatus.PENDING)
         .build();
   }

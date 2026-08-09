@@ -7,5 +7,3 @@ import java.util.List;
 
 public record CreateRoomRequest(
     @NotBlank String number, @NotNull @Positive int capacity, List<CreateSeatRequest> seats) {}
-
-record CreateSeatRequest(@NotBlank String number, boolean available) {}
