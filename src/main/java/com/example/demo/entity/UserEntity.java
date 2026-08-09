@@ -4,7 +4,6 @@ import com.example.demo.entity.enums.UserRole;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 import java.util.UUID;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
